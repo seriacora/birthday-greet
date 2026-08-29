@@ -239,9 +239,9 @@
     <!-- Background Floating Hearts Container -->
     <div id="hearts-container"></div>
 
-    <!-- Audio Player linked to So What - BWRLD.mp3 -->
+    <!-- Audio Player targeting sowhat.mp3 in the root directory -->
     <audio id="bg-music" loop preload="auto">
-        <source src="So What - BWRLD.mp3" type="audio/mpeg">
+        <source src="./sowhat.mp3" type="audio/mpeg">
         Your browser does not support audio.
     </audio>
 
@@ -363,7 +363,7 @@
                 music.play().then(() => {
                     confetti({ particleCount: 50, spread: 80, origin: { y: 0.6 } });
                 }).catch(e => {
-                    alert("Audio playback error. Please verify 'So What - BWRLD.mp3' is uploaded in the same GitHub folder as index.html!");
+                    alert("Audio file could not be played. Please verify that 'sowhat.mp3' is uploaded to the same folder on GitHub.");
                 });
             } else {
                 music.pause();
