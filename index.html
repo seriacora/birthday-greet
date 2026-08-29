@@ -287,6 +287,49 @@
             40% { opacity: 1; transform: scale(1.2); }
         }
 
+        /* CAKE ANIMATION STYLES */
+        .cake-container {
+            margin: 25px 0 15px 0;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .cake-icon {
+            font-size: 90px;
+            display: block;
+            position: relative;
+        }
+
+        .flame-icon {
+            font-size: 32px;
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flameFlicker 0.6s infinite alternate ease-in-out;
+        }
+
+        @keyframes flameFlicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.15) rotate(2deg); opacity: 1; }
+        }
+
+        .smoke-icon {
+            font-size: 32px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            animation: smokeRise 1.5s forwards ease-out;
+        }
+
+        @keyframes smokeRise {
+            0% { transform: translateX(-50%) translateY(0) scale(0.8); opacity: 1; }
+            100% { transform: translateX(-50%) translateY(-35px) scale(1.6); opacity: 0; }
+        }
+
         .countdown {
             display: flex;
             justify-content: center;
@@ -434,7 +477,22 @@
         <button id="btn-next-story" class="btn-red" onclick="nextStoryStage(event)">Next Memory ❤️</button>
     </div>
 
-    <!-- STEP 3: ENVELOPE SCREEN -->
+    <!-- STEP 3: BIRTHDAY CAKE & BLOW CANDLE SCREEN -->
+    <div id="page-cake" class="page-screen">
+        <h1 class="title-cursive wiggle-text" style="font-size: 3.2em;">Make A Wish! 🎂</h1>
+        <p class="subtitle" id="cake-instruction">Blow out your birthday candle, Youssef! ✨</p>
+        
+        <div class="cake-container" onclick="blowCandle(event)">
+            <span id="flame" class="flame-icon">🔥</span>
+            <span id="smoke" class="smoke-icon">💨</span>
+            <span class="cake-icon">🎂</span>
+        </div>
+
+        <br>
+        <button id="btn-blow-candle" class="btn-red" onclick="blowCandle(event)">🌬️ Blow Out Candle!</button>
+    </div>
+
+    <!-- STEP 4: ENVELOPE SCREEN -->
     <div id="page-envelope" class="page-screen">
         <div class="animated-cat-mascot">💌🐱</div>
         <h1 class="title-cursive">You Have a Letter</h1>
@@ -442,7 +500,7 @@
         <button class="btn-red" onclick="showScreen('page-main-menu', event)">Open Letter ✨</button>
     </div>
 
-    <!-- STEP 4: MAIN MENU -->
+    <!-- STEP 5: MAIN MENU -->
     <div id="page-main-menu" class="page-screen">
         <h1 class="title-cursive wiggle-text" style="font-size: 3em;">Happy Birthday, Youssef!</h1>
 
@@ -537,6 +595,7 @@
         ];
 
         let currentStageIndex = 0;
+        let candleBlown = false;
 
         function typeText(elementId, text, speed, callback) {
             let i = 0;
@@ -583,15 +642,38 @@
             if (currentStageIndex < storyStages.length) {
                 playStoryAnimation(currentStageIndex);
                 if (currentStageIndex === storyStages.length - 1) {
-                    document.getElementById('btn-next-story').innerText = "See Envelope 💌";
+                    document.getElementById('btn-next-story').innerText = "Make a Wish 🎂";
                 }
             } else {
-                showScreen('page-envelope', event);
+                showScreen('page-cake', event);
             }
         }
 
+        function blowCandle(event) {
+            if (candleBlown) return;
+            candleBlown = true;
+
+            const flame = document.getElementById('flame');
+            const smoke = document.getElementById('smoke');
+            const btn = document.getElementById('btn-blow-candle');
+            const instruction = document.getElementById('cake-instruction');
+
+            flame.style.display = 'none';
+            smoke.style.display = 'block';
+
+            if (event) explodeHearts(event.clientX || window.innerWidth / 2, event.clientY || window.innerHeight / 2);
+
+            instruction.innerText = "Your wish is coming true! ✨ 🎉";
+            btn.innerText = "Opening Envelope...";
+            btn.style.opacity = "0.7";
+
+            setTimeout(() => {
+                showScreen('page-envelope', event);
+            }, 1800);
+        }
+
         function explodeHearts(x, y) {
-            const heartIcons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '😸', '🌸'];
+            const heartIcons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '😸', '🌸', '🎂', '🎉'];
             for (let i = 0; i < 25; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'burst-heart';
