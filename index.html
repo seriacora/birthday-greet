@@ -16,6 +16,8 @@
             --soft-pink: #fdf0f0;
             --card-pink: #fabbc7;
             --discord-purple: #5865F2;
+            --discord-green: #57F287;
+            --discord-bg: #2b2d31;
             --text-dark: #2b2d42;
             --font-cursive: 'Great Vibes', cursive;
             --font-serif: 'Playfair Display', serif;
@@ -66,23 +68,16 @@
         }
 
         @keyframes burstAnimation {
-            0% {
-                transform: translate(0, 0) scale(0.5) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(var(--rot));
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* Cute Animated Cat Mascot Elements */
+        /* Animated Elements */
         .animated-cat-mascot {
-            font-size: 75px;
+            font-size: 70px;
             display: inline-block;
             margin-bottom: 5px;
             animation: catBounce 2.5s infinite ease-in-out;
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
         }
 
         @keyframes catBounce {
@@ -103,7 +98,7 @@
             75% { transform: rotate(3deg) scale(0.98); }
         }
 
-        /* Main Container & Smooth Screen Transitions */
+        /* Main Container Screens */
         .page-screen {
             display: none;
             background: rgba(255, 255, 255, 0.96);
@@ -182,50 +177,128 @@
             100% { box-shadow: 0 0 22px rgba(193, 18, 31, 0.5); }
         }
 
-        /* Discord Story Box */
-        .discord-box {
-            background: #313338;
-            border-radius: 18px;
+        /* NEW DISCORD STORY ANIMATION STYLES */
+        .discord-window {
+            background: #1e1f22;
+            border-radius: 20px;
             padding: 18px;
             color: #dbdee1;
             text-align: left;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .story-stage {
-            display: none;
-        }
-
-        .story-stage.active {
-            display: block;
-            animation: floatUpStage 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes floatUpStage {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .chat-bubble {
-            background: #2b2d31;
-            padding: 10px 14px;
-            border-radius: 12px;
-            margin: 8px 0;
-            font-size: 0.9em;
-            border-left: 4px solid var(--discord-purple);
-        }
-
-        .couple-avatars {
+        .discord-header {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 12px;
-            font-size: 38px;
-            margin: 15px 0;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #35363c;
+            margin-bottom: 15px;
+            font-size: 0.85em;
+            color: #949ba4;
         }
 
-        /* Countdown Timer */
+        .chat-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chat-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .avatar-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            background: #313338;
+            border: 2px solid var(--discord-purple);
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .chat-content {
+            flex-grow: 1;
+        }
+
+        .chat-author {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #f2f3f5;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-timestamp {
+            font-size: 0.75em;
+            color: #949ba4;
+            font-weight: normal;
+        }
+
+        .chat-text-box {
+            background: var(--discord-bg);
+            padding: 12px 16px;
+            border-radius: 0 14px 14px 14px;
+            font-size: 0.92em;
+            line-height: 1.5;
+            color: #dbdee1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border-left: 3px solid var(--discord-purple);
+        }
+
+        .chat-row.youssef .avatar-circle {
+            border-color: var(--discord-green);
+        }
+
+        .chat-row.youssef .chat-text-box {
+            border-left-color: var(--discord-green);
+        }
+
+        /* Typing Dots Animation */
+        .typing-indicator {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+            padding: 6px 12px;
+            background: #313338;
+            border-radius: 12px;
+            font-size: 0.8em;
+            color: #b5bac1;
+            margin-top: 5px;
+        }
+
+        .typing-dot {
+            width: 5px;
+            height: 5px;
+            background: #b5bac1;
+            border-radius: 50%;
+            animation: blink 1.4s infinite both;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes blink {
+            0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Countdown & Photo Grid */
         .countdown {
             display: flex;
             justify-content: center;
@@ -269,7 +342,6 @@
         .reasons-list { padding-left: 20px; margin: 0; }
         .reasons-list li { margin-bottom: 12px; font-weight: 500; }
 
-        /* Multi-column Cat Photo Grid */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -337,46 +409,45 @@
         </div>
     </div>
 
-    <!-- STEP 2: DISCORD LOVE STORY ANIMATION -->
+    <!-- STEP 2: ANIMATED TYPEWRITER DISCORD STORY -->
     <div id="page-story" class="page-screen">
         <h2 style="color: var(--primary-red); font-family: var(--font-serif); margin-top: 0;">How It All Began... 💬</h2>
         
-        <div class="discord-box">
-            <div id="story-1" class="story-stage active">
-                <div class="couple-avatars">
-                    <span class="wiggle-text">👩‍💻</span>
-                    <span style="font-size: 22px; color: var(--card-pink);" class="wiggle-text">💬</span>
-                    <span class="wiggle-text">👨‍💻</span>
-                </div>
-                <p style="text-align: center; color: #a3a8b4; font-size: 0.85em; margin-bottom: 10px;">Discord Server • Direct Message</p>
-                <div class="chat-bubble"><strong>You:</strong> "Hey! Saw you in the server... wanted to say hi! 👋"</div>
-                <div class="chat-bubble" style="border-left-color: #57F287;"><strong>Youssef:</strong> "Hey there! Glad you messaged me 😊"</div>
+        <div class="discord-window">
+            <div class="discord-header">
+                <span style="font-size: 16px;">💬</span>
+                <span style="font-weight: 600; color: #f2f3f5;">Direct Message</span>
+                <span style="margin-left: auto; color: #57F287;">● Active Now</span>
             </div>
 
-            <div id="story-2" class="story-stage">
-                <div class="couple-avatars">
-                    <span class="wiggle-text">👩‍💻</span>
-                    <span style="font-size: 24px;" class="animated-cat-mascot">🎧💖🐱</span>
-                    <span class="wiggle-text">👨‍💻</span>
+            <!-- Animated Chat Message 1 -->
+            <div id="chat-msg-1" class="chat-row">
+                <div class="avatar-circle">👩‍💻</div>
+                <div class="chat-content">
+                    <div class="chat-author">You <span class="chat-timestamp">Today at 10:14 PM</span></div>
+                    <div class="chat-text-box" id="typed-text-1"></div>
                 </div>
-                <p style="text-align: center; color: #a3a8b4; font-size: 0.85em; margin-bottom: 10px;">Late Night Calls & Cats</p>
-                <div class="chat-bubble">We started talking every day, sharing funny cat memes, playing games, and listening to music together...</div>
-                <div class="chat-bubble" style="border-left-color: #57F287;"><strong>Youssef:</strong> "I really enjoy talking to you every day."</div>
             </div>
 
-            <div id="story-3" class="story-stage">
-                <div class="couple-avatars">
-                    <span class="wiggle-text">👩‍❤️‍👨</span>
-                    <span style="font-size: 26px;" class="animated-cat-mascot">🐾</span>
+            <!-- Animated Chat Message 2 -->
+            <div id="chat-msg-2" class="chat-row youssef">
+                <div class="avatar-circle">👨‍💻</div>
+                <div class="chat-content">
+                    <div class="chat-author">Youssef 💕 <span class="chat-timestamp">Today at 10:15 PM</span></div>
+                    <div class="chat-text-box" id="typed-text-2"></div>
                 </div>
-                <p style="text-align: center; color: var(--card-pink); font-size: 1.1em; font-weight: bold; margin-bottom: 10px;">And then... we fell in love! ❤️</p>
-                <div class="chat-bubble" style="text-align: center; border-left: none; background: rgba(255,255,255,0.05);">
-                    Two strangers on Discord who became best friends, and now... my favorite person in the world. 👩‍❤️‍💋‍👨
-                </div>
+            </div>
+
+            <!-- Typing Indicator Element -->
+            <div id="typing-indicator" class="typing-indicator" style="display: none;">
+                <span>Youssef is typing</span>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
             </div>
         </div>
 
-        <button id="btn-next-story" class="btn-red" onclick="nextStoryStage(event)">Next ❤️</button>
+        <button id="btn-next-story" class="btn-red" onclick="nextStoryStage(event)">Next Memory ❤️</button>
     </div>
 
     <!-- STEP 3: ENVELOPE SCREEN -->
@@ -512,6 +583,85 @@
     </div>
 
     <script>
+        // Story Chapters & Dialogues
+        const storyStages = [
+            {
+                msg1: "Hey! Saw you in the server... wanted to say hi! 👋",
+                msg2: "Hey there! Glad you messaged me 😊"
+            },
+            {
+                msg1: "We started talking every single day, sharing funny cat memes & music... 🎧🐱",
+                msg2: "I really enjoy talking to you every day."
+            },
+            {
+                msg1: "And then... two strangers on Discord fell completely in love. ❤️",
+                msg2: "Now you are my favorite person in the entire world! 👩‍❤️‍💋‍👨"
+            }
+        ];
+
+        let currentStageIndex = 0;
+
+        // Typewriter Animation Logic
+        function typeText(elementId, text, speed, callback) {
+            let i = 0;
+            const elem = document.getElementById(elementId);
+            elem.innerText = "";
+            
+            function type() {
+                if (i < text.length) {
+                    elem.innerText += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
+        }
+
+        function playStoryAnimation(stageIndex) {
+            const stage = storyStages[stageIndex];
+            const msg1Row = document.getElementById('chat-msg-1');
+            const msg2Row = document.getElementById('chat-msg-2');
+            const typingIndicator = document.getElementById('typing-indicator');
+
+            msg1Row.classList.remove('visible');
+            msg2Row.classList.remove('visible');
+            typingIndicator.style.display = 'none';
+
+            // Reveal Message 1 with Typewriter Effect
+            setTimeout(() => {
+                msg1Row.classList.add('visible');
+                typeText('typed-text-1', stage.msg1, 35, () => {
+                    // Show Typing Indicator for Youssef
+                    setTimeout(() => {
+                        typingIndicator.style.display = 'inline-flex';
+                        
+                        // Reveal Message 2
+                        setTimeout(() => {
+                            typingIndicator.style.display = 'none';
+                            msg2Row.classList.add('visible');
+                            typeText('typed-text-2', stage.msg2, 35);
+                        }, 1200);
+                    }, 400);
+                });
+            }, 200);
+        }
+
+        function nextStoryStage(event) {
+            if (event) explodeHearts(event.clientX, event.clientY);
+
+            currentStageIndex++;
+            if (currentStageIndex < storyStages.length) {
+                playStoryAnimation(currentStageIndex);
+                if (currentStageIndex === storyStages.length - 1) {
+                    document.getElementById('btn-next-story').innerText = "See Envelope 💌";
+                }
+            } else {
+                showScreen('page-envelope', event);
+            }
+        }
+
         function explodeHearts(x, y) {
             const heartIcons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '😸', '🌸'];
             const count = 25;
@@ -535,9 +685,7 @@
 
                 document.body.appendChild(heart);
 
-                setTimeout(() => {
-                    heart.remove();
-                }, 1200);
+                setTimeout(() => { heart.remove(); }, 1200);
             }
         }
 
@@ -555,29 +703,9 @@
 
         function startExperience(event) {
             var music = document.getElementById("bg-music");
-            music.play().catch(e => {
-                console.log("Audio playback error:", e);
-            });
+            music.play().catch(e => { console.log("Audio playback error:", e); });
             showScreen('page-story', event);
-        }
-
-        let currentStage = 1;
-        function nextStoryStage(event) {
-            if (event) {
-                explodeHearts(event.clientX, event.clientY);
-            }
-
-            document.getElementById(`story-${currentStage}`).classList.remove('active');
-            currentStage++;
-
-            if (currentStage <= 3) {
-                document.getElementById(`story-${currentStage}`).classList.add('active');
-                if (currentStage === 3) {
-                    document.getElementById('btn-next-story').innerText = "See Envelope 💌";
-                }
-            } else {
-                showScreen('page-envelope', event);
-            }
+            playStoryAnimation(0);
         }
 
         function toggleMusic(event) {
@@ -604,9 +732,7 @@
             
             container.appendChild(heart);
             
-            setTimeout(() => {
-                heart.remove();
-            }, 8000);
+            setTimeout(() => { heart.remove(); }, 8000);
         }
 
         setInterval(createHeart, 450);
