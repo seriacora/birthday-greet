@@ -37,21 +37,23 @@
             position: relative;
         }
 
-        /* Floating Hearts & Cats Background Animation */
+        /* Continuous Floating Background Particles */
         .heart-particle {
             position: fixed;
             bottom: -100px;
-            font-size: 24px;
+            font-size: 26px;
             user-select: none;
             pointer-events: none;
             z-index: 0;
-            animation: floatUp 8s linear infinite;
-            opacity: 0.75;
+            animation: floatUp 7s ease-in-out infinite;
+            opacity: 0.85;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.9; }
+            50% { transform: translateY(-50vh) rotate(180deg) scale(1.1); }
+            100% { transform: translateY(-110vh) rotate(360deg) scale(0.8); opacity: 0; }
         }
 
         /* Exploding Hearts Burst */
@@ -59,7 +61,7 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            font-size: 24px;
+            font-size: 26px;
             animation: burstAnimation 1.2s ease-out forwards;
         }
 
@@ -74,13 +76,40 @@
             }
         }
 
-        /* Standalone Screen Container with Seamless Animations */
+        /* Cute Animated Cat Mascot Elements */
+        .animated-cat-mascot {
+            font-size: 75px;
+            display: inline-block;
+            margin-bottom: 5px;
+            animation: catBounce 2.5s infinite ease-in-out;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
+        }
+
+        @keyframes catBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-12px) rotate(-5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-6px) rotate(5deg); }
+        }
+
+        .wiggle-text {
+            display: inline-block;
+            animation: kittyWiggle 3s infinite ease-in-out;
+        }
+
+        @keyframes kittyWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg) scale(1.02); }
+            75% { transform: rotate(3deg) scale(0.98); }
+        }
+
+        /* Main Container & Smooth Screen Transitions */
         .page-screen {
             display: none;
             background: rgba(255, 255, 255, 0.96);
             padding: 35px 25px;
-            border-radius: 24px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             max-width: 480px;
             width: 100%;
             border: 3px solid var(--card-pink);
@@ -92,11 +121,11 @@
 
         .page-screen.active {
             display: block;
-            animation: seamlessFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: smoothPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        @keyframes seamlessFade {
-            0% { opacity: 0; transform: scale(0.92) translateY(12px); }
+        @keyframes smoothPopIn {
+            0% { opacity: 0; transform: scale(0.85) translateY(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -115,7 +144,7 @@
             margin-bottom: 20px;
         }
 
-        /* Aesthetic Buttons */
+        /* Buttons & Controls */
         .btn-red {
             background-color: var(--primary-red);
             color: white;
@@ -131,20 +160,19 @@
 
         .btn-red:hover {
             background-color: var(--deep-red);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 22px rgba(120, 0, 0, 0.45);
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 10px 25px rgba(120, 0, 0, 0.45);
         }
 
         .btn-dark-red { background-color: var(--deep-red); }
         .btn-back { background-color: #555; margin-top: 25px; }
         .btn-back:hover { background-color: #333; }
 
-        /* Start Music Intro Card */
         .music-start-card {
             background: var(--soft-pink);
             border: 2px dashed var(--primary-red);
             border-radius: 20px;
-            padding: 25px 20px;
+            padding: 22px 18px;
             margin: 20px 0;
             animation: pulseGlow 3s infinite alternate;
         }
@@ -157,7 +185,7 @@
         /* Discord Story Box */
         .discord-box {
             background: #313338;
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 18px;
             color: #dbdee1;
             text-align: left;
@@ -167,11 +195,16 @@
 
         .story-stage {
             display: none;
-            animation: fadeIn 0.4s ease-in-out;
         }
 
         .story-stage.active {
             display: block;
+            animation: floatUpStage 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes floatUpStage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .chat-bubble {
@@ -224,7 +257,6 @@
             margin-top: 20px;
         }
 
-        /* Aesthetic Cards & Photo Grids */
         .content-card {
             background: var(--soft-pink);
             border-left: 5px solid var(--primary-red);
@@ -237,52 +269,64 @@
         .reasons-list { padding-left: 20px; margin: 0; }
         .reasons-list li { margin-bottom: 12px; font-weight: 500; }
 
+        /* Multi-column Cat Photo Grid */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-top: 15px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding: 5px;
         }
 
         .photo-card {
             background: white;
-            padding: 6px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 8px;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
-        .photo-card:hover { transform: scale(1.06) rotate(1.5deg); }
+        .photo-card:hover { 
+            transform: scale(1.05) rotate(1deg); 
+            box-shadow: 0 8px 20px rgba(193, 18, 31, 0.2);
+        }
 
         .photo-card img {
             width: 100%;
-            height: 110px;
+            height: 115px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+        .cat-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.9);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Floating Particles Container -->
     <div id="hearts-container"></div>
 
-    <!-- Audio Player -->
     <audio id="bg-music" loop preload="auto">
         <source src="./sowhat.mp3" type="audio/mpeg">
         Your browser does not support audio.
     </audio>
 
-    <!-- STEP 1: MUSIC START SCREEN (LOADS FIRST) -->
+    <!-- STEP 1: MUSIC START SCREEN -->
     <div id="page-music-start" class="page-screen active">
-        <span style="font-size: 70px; display: block; margin-bottom: 5px;">🐱🎧</span>
-        <h1 class="title-cursive">Welcome Youssef!</h1>
+        <div class="animated-cat-mascot">🐱🎧</div>
+        <h1 class="title-cursive wiggle-text">Welcome Youssef!</h1>
         <p class="subtitle">Turn up your audio for the best experience ✨</p>
         
         <div class="music-start-card">
@@ -298,35 +342,32 @@
         <h2 style="color: var(--primary-red); font-family: var(--font-serif); margin-top: 0;">How It All Began... 💬</h2>
         
         <div class="discord-box">
-            <!-- Stage 1 -->
             <div id="story-1" class="story-stage active">
                 <div class="couple-avatars">
-                    <span>👩‍💻</span>
-                    <span style="font-size: 22px; color: var(--card-pink);">💬</span>
-                    <span>👨‍💻</span>
+                    <span class="wiggle-text">👩‍💻</span>
+                    <span style="font-size: 22px; color: var(--card-pink);" class="wiggle-text">💬</span>
+                    <span class="wiggle-text">👨‍💻</span>
                 </div>
                 <p style="text-align: center; color: #a3a8b4; font-size: 0.85em; margin-bottom: 10px;">Discord Server • Direct Message</p>
                 <div class="chat-bubble"><strong>You:</strong> "Hey! Saw you in the server... wanted to say hi! 👋"</div>
                 <div class="chat-bubble" style="border-left-color: #57F287;"><strong>Youssef:</strong> "Hey there! Glad you messaged me 😊"</div>
             </div>
 
-            <!-- Stage 2 -->
             <div id="story-2" class="story-stage">
                 <div class="couple-avatars">
-                    <span>👩‍💻</span>
-                    <span style="font-size: 24px;">🎧💖🐱</span>
-                    <span>👨‍💻</span>
+                    <span class="wiggle-text">👩‍💻</span>
+                    <span style="font-size: 24px;" class="animated-cat-mascot">🎧💖🐱</span>
+                    <span class="wiggle-text">👨‍💻</span>
                 </div>
                 <p style="text-align: center; color: #a3a8b4; font-size: 0.85em; margin-bottom: 10px;">Late Night Calls & Cats</p>
                 <div class="chat-bubble">We started talking every day, sharing funny cat memes, playing games, and listening to music together...</div>
                 <div class="chat-bubble" style="border-left-color: #57F287;"><strong>Youssef:</strong> "I really enjoy talking to you every day."</div>
             </div>
 
-            <!-- Stage 3 -->
             <div id="story-3" class="story-stage">
                 <div class="couple-avatars">
-                    <span>👩‍❤️‍👨</span>
-                    <span style="font-size: 26px;">🐾</span>
+                    <span class="wiggle-text">👩‍❤️‍👨</span>
+                    <span style="font-size: 26px;" class="animated-cat-mascot">🐾</span>
                 </div>
                 <p style="text-align: center; color: var(--card-pink); font-size: 1.1em; font-weight: bold; margin-bottom: 10px;">And then... we fell in love! ❤️</p>
                 <div class="chat-bubble" style="text-align: center; border-left: none; background: rgba(255,255,255,0.05);">
@@ -340,7 +381,7 @@
 
     <!-- STEP 3: ENVELOPE SCREEN -->
     <div id="page-envelope" class="page-screen">
-        <span style="font-size: 80px; display: block; margin-bottom: 10px; animation: pulseGlow 2s infinite alternate;">💌</span>
+        <div class="animated-cat-mascot">💌🐱</div>
         <h1 class="title-cursive">You Have a Letter</h1>
         <p class="subtitle">For Youssef, with all my love.</p>
         <button class="btn-red" onclick="showScreen('page-main-menu', event)">Open Letter ✨</button>
@@ -348,9 +389,8 @@
 
     <!-- STEP 4: MAIN MENU SCREEN -->
     <div id="page-main-menu" class="page-screen">
-        <h1 class="title-cursive" style="font-size: 3em;">Happy Birthday, Youssef!</h1>
+        <h1 class="title-cursive wiggle-text" style="font-size: 3em;">Happy Birthday, Youssef!</h1>
 
-        <!-- Music Box Controller -->
         <div class="music-start-card" style="padding: 15px; margin-bottom: 15px;">
             <p style="margin: 0 0 8px 0; font-family: var(--font-serif); color: var(--deep-red); font-size: 0.9em; font-weight: 600;">
                 🎵 Music Playing: "So What"
@@ -358,7 +398,6 @@
             <button class="btn-red" style="padding: 8px 18px; font-size: 0.85em;" onclick="toggleMusic(event)">⏸ Pause / Play Song</button>
         </div>
 
-        <!-- Countdown -->
         <div class="countdown">
             <div class="time-box"><span id="days">00</span>Days</div>
             <div class="time-box"><span id="hours">00</span>Hours</div>
@@ -366,7 +405,6 @@
             <div class="time-box"><span id="seconds">00</span>Secs</div>
         </div>
 
-        <!-- Navigation Grid -->
         <div class="nav-grid">
             <button class="btn-red" onclick="showScreen('page-letter', event)">💌 Letter</button>
             <button class="btn-red" onclick="showScreen('page-photos', event)">📷 Photos</button>
@@ -390,7 +428,7 @@
     <!-- PAGE: PHOTOS -->
     <div id="page-photos" class="page-screen">
         <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">Our Memories 📸</h3>
-        <div class="photo-grid">
+        <div class="photo-grid" style="grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));">
             <div class="photo-card">
                 <img src="photo1.jpg" alt="Memory 1">
                 <p style="font-size: 0.8em; margin: 4px 0;">Special Times</p>
@@ -407,22 +445,42 @@
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu', event)">← Back to Menu</button>
     </div>
 
-    <!-- PAGE: CUTE CATS -->
+    <!-- PAGE: EXPANDED CUTE CATS GALLERY -->
     <div id="page-cats" class="page-screen">
-        <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">For You & The Cats! 🐾🐱</h3>
-        <p style="font-size: 0.85em; color: #555;">Some cute kitty friends to brighten your birthday!</p>
+        <div class="animated-cat-mascot" style="font-size: 45px;">🐾😸</div>
+        <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">Cute Kitty Friends! 🐱</h3>
+        <p style="font-size: 0.85em; color: #555;">Lots of cute cats to bring a smile on your birthday!</p>
+        
         <div class="photo-grid">
             <div class="photo-card">
-                <img src="https://cataas.com/cat/cute" alt="Cute Cat 1">
-                <p style="font-size: 0.8em; margin: 4px 0;">Sleepy Kitty 😴</p>
+                <span class="cat-badge"> Sleepy</span>
+                <img src="https://cataas.com/cat/cute?1" alt="Cute Cat 1">
+                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Cozy Kitty 😴</p>
             </div>
             <div class="photo-card">
-                <img src="https://cataas.com/cat/says/Happy%20Birthday" alt="Cute Cat 2">
-                <p style="font-size: 0.8em; margin: 4px 0;">Birthday Cat 🎂</p>
+                <span class="cat-badge"> Birthday</span>
+                <img src="https://cataas.com/cat/says/Happy%20Birthday?2" alt="Cute Cat 2">
+                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Party Cat 🎂</p>
             </div>
             <div class="photo-card">
-                <img src="https://cataas.com/cat/funny" alt="Cute Cat 3">
-                <p style="font-size: 0.8em; margin: 4px 0;">Silly Cat 🤪</p>
+                <span class="cat-badge"> Silly</span>
+                <img src="https://cataas.com/cat/funny?3" alt="Cute Cat 3">
+                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Goofy Cat 🤪</p>
+            </div>
+            <div class="photo-card">
+                <span class="cat-badge"> Fluffy</span>
+                <img src="https://cataas.com/cat/fluffy?4" alt="Cute Cat 4">
+                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Fluffball ☁️</p>
+            </div>
+            <div class="photo-card">
+                <span class="cat-badge"> Tiny</span>
+                <img src="https://cataas.com/cat/kitten?5" alt="Cute Cat 5">
+                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Baby Kitten 🐾</p>
+            </div>
+            <div class="photo-card">
+                <span class="cat-badge"> Sweet</span>
+                <img src="https://cataas.com/cat/hug?6" alt="Cute Cat 6">
+                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Cuddle Kitty 💖</p>
             </div>
         </div>
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu', event)">← Back to Menu</button>
@@ -454,9 +512,8 @@
     </div>
 
     <script>
-        // Exploding Hearts Burst Animation
         function explodeHearts(x, y) {
-            const heartIcons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '🌸'];
+            const heartIcons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '😸', '🌸'];
             const count = 25;
 
             for (let i = 0; i < count; i++) {
@@ -484,7 +541,6 @@
             }
         }
 
-        // Seamless Screen Switching
         function showScreen(screenId, event) {
             if (event) {
                 explodeHearts(event.clientX || window.innerWidth / 2, event.clientY || window.innerHeight / 2);
@@ -497,7 +553,6 @@
             document.getElementById(screenId).classList.add('active');
         }
 
-        // Start Experience (Music Play + Transition to Love Story)
         function startExperience(event) {
             var music = document.getElementById("bg-music");
             music.play().catch(e => {
@@ -506,7 +561,6 @@
             showScreen('page-story', event);
         }
 
-        // Story Sequence Control
         let currentStage = 1;
         function nextStoryStage(event) {
             if (event) {
@@ -526,7 +580,6 @@
             }
         }
 
-        // Toggle Background Music
         function toggleMusic(event) {
             var music = document.getElementById("bg-music");
             if (music.paused) {
@@ -537,29 +590,27 @@
             }
         }
 
-        // Continuous Background Floating Particles
         function createHeart() {
             const container = document.getElementById('hearts-container');
             const heart = document.createElement('div');
             heart.classList.add('heart-particle');
             
-            const icons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '🌸'];
+            const icons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '😸', '🌸'];
             heart.innerText = icons[Math.floor(Math.random() * icons.length)];
             
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
-            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            heart.style.fontSize = (Math.random() * 15 + 18) + 'px';
             
             container.appendChild(heart);
             
             setTimeout(() => {
                 heart.remove();
-            }, 9000);
+            }, 8000);
         }
 
-        setInterval(createHeart, 500);
+        setInterval(createHeart, 450);
 
-        // Countdown Timer targeting Midnight Sept 14 (PDT / UTC-7)
         var targetDate = new Date("2026-09-14T00:00:00-07:00").getTime();
 
         var timer = setInterval(function() {
