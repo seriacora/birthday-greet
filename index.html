@@ -14,7 +14,6 @@
             --deep-red: #780000;
             --soft-pink: #fdf0f0;
             --card-pink: #fabbc7;
-            --accent-gold: #ffb703;
             --text-dark: #2b2d42;
             --font-cursive: 'Great Vibes', cursive;
             --font-serif: 'Playfair Display', serif;
@@ -34,22 +33,22 @@
             justify-content: center;
         }
 
-        /* Container Card Styling */
-        .card {
-            display: none; /* Controlled by JavaScript */
+        /* Full Page View Cards */
+        .page-view {
+            display: none; /* Only the active page shows */
             background: rgba(255, 255, 255, 0.96);
-            padding: 35px 25px;
+            padding: 40px 25px;
             border-radius: 24px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            max-width: 480px;
             width: 100%;
             border: 3px solid var(--card-pink);
             box-sizing: border-box;
         }
 
-        .card.active {
+        .page-view.active {
             display: block;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: slideIn 0.4s ease-in-out;
         }
 
         .title-cursive {
@@ -67,12 +66,12 @@
             margin-bottom: 20px;
         }
 
-        /* Buttons */
-        .btn-primary {
+        /* Primary Action Buttons */
+        .btn-action {
             background-color: var(--primary-red);
             color: white;
             border: none;
-            padding: 12px 28px;
+            padding: 14px 30px;
             font-size: 1em;
             font-weight: 600;
             border-radius: 30px;
@@ -82,50 +81,40 @@
             margin-top: 15px;
         }
 
-        .btn-primary:hover {
+        .btn-action:hover {
             background-color: var(--deep-red);
             transform: scale(1.03);
         }
 
         .btn-back {
             background-color: #666;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
-        /* Menu Grid Buttons */
-        .menu-grid {
+        /* Menu Options Grid */
+        .menu-options {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             margin-top: 20px;
         }
 
-        .menu-btn {
+        .menu-card-btn {
             background: var(--soft-pink);
             border: 2px solid var(--primary-red);
             color: var(--deep-red);
-            padding: 15px;
+            padding: 16px;
             border-radius: 16px;
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        .menu-btn:hover {
+        .menu-card-btn:hover {
             background: var(--primary-red);
             color: white;
             transform: translateY(-2px);
-        }
-
-        /* Music Alert Box */
-        .music-box {
-            background: var(--soft-pink);
-            border: 2px dashed var(--primary-red);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
         }
 
         /* Countdown Box */
@@ -151,7 +140,7 @@
             color: var(--primary-red);
         }
 
-        /* Content Styling */
+        /* Content Boxes */
         .content-box {
             background: var(--soft-pink);
             border-left: 5px solid var(--primary-red);
@@ -163,6 +152,7 @@
 
         .reasons-list {
             padding-left: 20px;
+            margin: 0;
         }
 
         .reasons-list li {
@@ -172,7 +162,7 @@
 
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             gap: 10px;
             margin-top: 15px;
         }
@@ -187,13 +177,13 @@
 
         .photo-card img {
             width: 100%;
-            height: 110px;
+            height: 100px;
             object-fit: cover;
             border-radius: 6px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -205,16 +195,16 @@
         Your browser does not support audio.
     </audio>
 
-    <div id="page-envelope" class="card active">
+    <div id="page-envelope" class="page-view active">
         <span style="font-size: 80px; display: block; margin-bottom: 10px;">💌</span>
         <h1 class="title-cursive">You Have a Letter</h1>
         <p class="subtitle">For [His Name], with all my love.</p>
-        <button class="btn-primary" onclick="goToPage('page-welcome')">Open Letter ✨</button>
+        <button class="btn-action" onclick="showPage('page-welcome')">Open Letter ✨</button>
     </div>
 
-    <div id="page-welcome" class="card">
+    <div id="page-welcome" class="page-view">
         <h1 class="title-cursive">Happy Birthday!</h1>
-        <p class="subtitle">Turn on the sound to enjoy the music ❤️</p>
+        <p class="subtitle">Press play below to start the background music ❤️</p>
 
         <div class="countdown">
             <div class="time-box"><span id="days">00</span>Days</div>
@@ -223,40 +213,40 @@
             <div class="time-box"><span id="seconds">00</span>Secs</div>
         </div>
 
-        <div class="music-box">
-            <p style="margin-top: 0; font-weight: 600; color: var(--deep-red);">🎧 Play Background Music</p>
-            <button class="btn-primary" onclick="toggleMusic()">🎵 Play / Pause Song</button>
+        <div style="background: var(--soft-pink); border: 2px dashed var(--primary-red); border-radius: 16px; padding: 20px; margin: 20px 0;">
+            <p style="margin: 0 0 10px 0; font-weight: 600; color: var(--deep-red);">🎧 Play Song First</p>
+            <button class="btn-action" onclick="toggleMusic()">🎵 Play / Pause Song</button>
         </div>
 
-        <button class="btn-primary" onclick="goToPage('page-menu')">Next Step ✨</button>
+        <button class="btn-action" onclick="showPage('page-menu')">Next Page ➔</button>
     </div>
 
-    <div id="page-menu" class="card">
-        <h2 style="font-family: var(--font-serif); color: var(--primary-red); margin-top: 0;">Choose a Page to Explore ❤️</h2>
-        <div class="menu-grid">
-            <button class="menu-btn" onclick="goToPage('page-letter')">💌 Read Birthday Letter</button>
-            <button class="menu-btn" onclick="goToPage('page-photos')">📷 Our Memories</button>
-            <button class="menu-btn" onclick="goToPage('page-reasons')">✨ 5 Reasons Why I Love You</button>
-            <button class="menu-btn" onclick="goToPage('page-wish')">🎂 My Birthday Wish For You</button>
+    <div id="page-menu" class="page-view">
+        <h2 style="font-family: var(--font-serif); color: var(--primary-red); margin-top: 0;">Select a Page ❤️</h2>
+        <div class="menu-options">
+            <button class="menu-card-btn" onclick="showPage('page-letter')">💌 Read My Letter</button>
+            <button class="menu-card-btn" onclick="showPage('page-photos')">📷 Photo Memories</button>
+            <button class="menu-card-btn" onclick="showPage('page-reasons')">✨ 5 Reasons Why I Love You</button>
+            <button class="menu-card-btn" onclick="showPage('page-wish')">🎂 Birthday Wish</button>
         </div>
     </div>
 
-    <div id="page-letter" class="card">
+    <div id="page-letter" class="page-view">
         <div class="content-box">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">To My Favorite Person,</h3>
             <p>Happy Birthday! I love you so much. Thank you for always being by my side through all my ups and downs—I truly appreciate everything you do and every moment we share together.</p>
             <p>You mean the world to me, and I am so grateful to have you in my life.</p>
-            <p style="font-family: var(--font-cursive); font-size: 2em; color: var(--deep-red); margin-bottom: 0;">Forever Yours, ❤️</p>
+            <p style="font-family: var(--font-cursive); font-size: 2.2em; color: var(--deep-red); margin-bottom: 0;">Forever Yours, ❤️</p>
         </div>
-        <button class="btn-primary btn-back" onclick="goToPage('page-menu')">← Back to Menu</button>
+        <button class="btn-action btn-back" onclick="showPage('page-menu')">← Back to Menu</button>
     </div>
 
-    <div id="page-photos" class="card">
+    <div id="page-photos" class="page-view">
         <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">Our Memories 📸</h3>
         <div class="photo-grid">
             <div class="photo-card">
                 <img src="photo1.jpg" alt="Memory 1">
-                <p style="font-size: 0.8em; margin: 4px 0;">Our Special Times</p>
+                <p style="font-size: 0.8em; margin: 4px 0;">Special Times</p>
             </div>
             <div class="photo-card">
                 <img src="photo2.jpg" alt="Memory 2">
@@ -264,13 +254,13 @@
             </div>
             <div class="photo-card">
                 <img src="photo3.jpg" alt="Memory 3">
-                <p style="font-size: 0.8em; margin: 4px 0;">Best Memories</p>
+                <p style="font-size: 0.8em; margin: 4px 0;">Best Moments</p>
             </div>
         </div>
-        <button class="btn-primary btn-back" onclick="goToPage('page-menu')">← Back to Menu</button>
+        <button class="btn-action btn-back" onclick="showPage('page-menu')">← Back to Menu</button>
     </div>
 
-    <div id="page-reasons" class="card">
+    <div id="page-reasons" class="page-view">
         <div class="content-box">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">5 Reasons Why I Love You</h3>
             <ol class="reasons-list">
@@ -281,26 +271,26 @@
                 <li><strong>He makes me happy. ❤️</strong></li>
             </ol>
         </div>
-        <button class="btn-primary btn-back" onclick="goToPage('page-menu')">← Back to Menu</button>
+        <button class="btn-action btn-back" onclick="showPage('page-menu')">← Back to Menu</button>
     </div>
 
-    <div id="page-wish" class="card">
+    <div id="page-wish" class="page-view">
         <div class="content-box">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">My Wish For You 🌟</h3>
             <p>On your special day, September 14, I am wishing you continuous good health, endless success, and a brighter, beautiful future ahead.</p>
             <p>May all your dreams come true, and may we continue celebrating many more birthdays together!</p>
         </div>
-        <button class="btn-primary btn-back" onclick="goToPage('page-menu')">← Back to Menu</button>
+        <button class="btn-action btn-back" onclick="showPage('page-menu')">← Back to Menu</button>
     </div>
 
     <script>
-        // Page Navigation Function (Hides current page, displays target page)
-        function goToPage(targetPageId) {
-            var cards = document.querySelectorAll('.card');
-            cards.forEach(function(card) {
-                card.classList.remove('active');
+        // Page Navigation Function (Hides every other page and shows ONLY the requested page view)
+        function showPage(pageId) {
+            var pages = document.querySelectorAll('.page-view');
+            pages.forEach(function(page) {
+                page.classList.remove('active');
             });
-            document.getElementById(targetPageId).classList.add('active');
+            document.getElementById(pageId).classList.add('active');
         }
 
         // Music Toggle Function
