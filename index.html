@@ -74,7 +74,7 @@
             }
         }
 
-        /* Standalone Screen Container with Smooth Transitions */
+        /* Standalone Screen Container */
         .page-screen {
             display: none;
             background: rgba(255, 255, 255, 0.96);
@@ -278,16 +278,8 @@
         Your browser does not support audio.
     </audio>
 
-    <!-- 1. ENVELOPE SCREEN -->
-    <div id="page-envelope" class="page-screen active">
-        <span style="font-size: 80px; display: block; margin-bottom: 10px; animation: pulseGlow 2s infinite alternate;">💌</span>
-        <h1 class="title-cursive">You Have a Letter</h1>
-        <p class="subtitle">For Youssef, with all my love.</p>
-        <button class="btn-red" onclick="showScreen('page-story', event)">Our Love Story ✨</button>
-    </div>
-
-    <!-- 2. DISCORD LOVE STORY ANIMATION SCREEN -->
-    <div id="page-story" class="page-screen">
+    <!-- 1. DISCORD LOVE STORY ANIMATION SCREEN (LOADS FIRST) -->
+    <div id="page-story" class="page-screen active">
         <h2 style="color: var(--primary-red); font-family: var(--font-serif); margin-top: 0;">How It All Began... 💬</h2>
         
         <div class="discord-box">
@@ -328,6 +320,14 @@
         </div>
 
         <button id="btn-next-story" class="btn-red" onclick="nextStoryStage(event)">Next ❤️</button>
+    </div>
+
+    <!-- 2. ENVELOPE SCREEN -->
+    <div id="page-envelope" class="page-screen">
+        <span style="font-size: 80px; display: block; margin-bottom: 10px; animation: pulseGlow 2s infinite alternate;">💌</span>
+        <h1 class="title-cursive">You Have a Letter</h1>
+        <p class="subtitle">For Youssef, with all my love.</p>
+        <button class="btn-red" onclick="showScreen('page-main-menu', event)">Open Letter ✨</button>
     </div>
 
     <!-- 3. MAIN MENU SCREEN -->
@@ -472,10 +472,10 @@
             if (currentStage <= 3) {
                 document.getElementById(`story-${currentStage}`).classList.add('active');
                 if (currentStage === 3) {
-                    document.getElementById('btn-next-story').innerText = "Open Main Menu 💌";
+                    document.getElementById('btn-next-story').innerText = "See Envelope 💌";
                 }
             } else {
-                showScreen('page-main-menu', event);
+                showScreen('page-envelope', event);
             }
         }
 
