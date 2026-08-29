@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Youssef!</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
@@ -296,6 +295,44 @@
             border: 2px solid var(--primary-red);
         }
 
+        /* CAT CATCH GAME STYLES */
+        .cat-game-area {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: #fff0f3;
+            border: 2px dashed var(--primary-red);
+            border-radius: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .catch-cat-item {
+            position: absolute;
+            font-size: 42px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.15s ease;
+            animation: popInCat 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .catch-cat-item:active {
+            transform: scale(0.7);
+        }
+
+        @keyframes popInCat {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            font-weight: 600;
+            color: var(--deep-red);
+            margin-bottom: 10px;
+        }
+
         /* DISCORD ANIMATION STYLES */
         .discord-window {
             background: #1e1f22;
@@ -583,7 +620,6 @@
 
     <div id="hearts-container"></div>
 
-    <!-- Floating Background Balloons -->
     <div class="balloon-wrapper">
         <div class="balloon">🎈</div>
         <div class="balloon">🎈</div>
@@ -594,20 +630,32 @@
         <source src="./sowhat.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- STEP 0: FIRST PAGE MATCHING MINI-GAME -->
     <div id="page-game" class="page-screen active">
         <div class="animated-cat-mascot">🐱🎁</div>
         <h1 class="title-cursive wiggle-text" style="font-size: 3em;">Love Match Challenge!</h1>
-        <p class="subtitle" id="game-status">Match all 3 pairs to unlock your birthday surprise, Youssef! ✨</p>
+        <p class="subtitle" id="game-status">Level 1: Match all 3 pairs, Youssef! ✨</p>
         
-        <div class="memory-grid" id="memory-grid">
-            <!-- Game cards injected dynamically via JavaScript -->
-        </div>
+        <div class="memory-grid" id="memory-grid"></div>
 
-        <button id="btn-unlock" class="btn-red" style="display: none;" onclick="showScreen('page-music-start', event)">🎉 Unlock Your Birthday Surprise!</button>
+        <button id="btn-unlock" class="btn-red" style="display: none;" onclick="showScreen('page-cat-game', event)">🐾 Next Level: Catch the Cats!</button>
     </div>
 
-    <!-- STEP 1: MUSIC START -->
+    <div id="page-cat-game" class="page-screen">
+        <div class="animated-cat-mascot">🐾🐱</div>
+        <h1 class="title-cursive wiggle-text" style="font-size: 2.8em;">Catch The Kitties!</h1>
+        <p class="subtitle" id="cat-game-status">Level 2: Tap 5 playful cats to win! 💖</p>
+        
+        <div class="game-stats">
+            <span>Score: <span id="cat-score">0</span> / 5</span>
+            <span>Time: <span id="cat-timer">15</span>s</span>
+        </div>
+
+        <div class="cat-game-area" id="cat-game-area"></div>
+
+        <button id="btn-start-cat-game" class="btn-red" onclick="startCatGame()">🎮 Start Catching!</button>
+        <button id="btn-unlock-final" class="btn-red" style="display: none;" onclick="showScreen('page-music-start', event)">🎉 Unlock Your Birthday Surprise!</button>
+    </div>
+
     <div id="page-music-start" class="page-screen">
         <div class="animated-cat-mascot">🐱🎧</div>
         <h1 class="title-cursive wiggle-text">Welcome Youssef!</h1>
@@ -621,7 +669,6 @@
         </div>
     </div>
 
-    <!-- STEP 2: ANIMATED TYPEWRITER DISCORD STORY -->
     <div id="page-story" class="page-screen">
         <h2 style="color: var(--primary-red); font-family: var(--font-serif); margin-top: 0;">How It All Began... 💬</h2>
         
@@ -659,9 +706,7 @@
         <button id="btn-next-story" class="btn-red" onclick="nextStoryStage(event)">Next Memory ❤️</button>
     </div>
 
-    <!-- STEP 3: BIGGER SINGLE CAKE & BLOW CANDLE SCREEN -->
     <div id="page-cake" class="page-screen">
-        <!-- Silky Ribbon Hanging Decoration -->
         <div class="ribbon-container">
             <div class="silky-string"></div>
             <div class="silky-string" style="animation-delay: 0.5s;"></div>
@@ -672,7 +717,6 @@
         <h1 class="title-cursive wiggle-text" style="font-size: 3.2em; margin-top: 15px;">Make A Wish! 🎂</h1>
         <p class="subtitle" id="cake-instruction">Blow out your birthday candle, Youssef! ✨</p>
         
-        <!-- Enlarged Single Layer Cake -->
         <div class="cake-wrapper" onclick="blowCandle(event)">
             <span id="flame" class="flame-icon">🔥</span>
             <span id="smoke" class="smoke-icon">💨</span>
@@ -687,7 +731,6 @@
         <button id="btn-blow-candle" class="btn-red" onclick="blowCandle(event)">🌬️ Blow Out Candle!</button>
     </div>
 
-    <!-- STEP 4: ENVELOPE SCREEN -->
     <div id="page-envelope" class="page-screen">
         <div class="animated-cat-mascot">💌🐱</div>
         <h1 class="title-cursive">You Have a Letter</h1>
@@ -695,7 +738,6 @@
         <button class="btn-red" onclick="showScreen('page-main-menu', event)">Open Letter ✨</button>
     </div>
 
-    <!-- STEP 5: MAIN MENU -->
     <div id="page-main-menu" class="page-screen">
         <h1 class="title-cursive wiggle-text" style="font-size: 3em;">Happy Birthday, Youssef!</h1>
 
@@ -722,7 +764,6 @@
         </div>
     </div>
 
-    <!-- SUB-PAGES -->
     <div id="page-letter" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">To My Favorite Person,</h3>
@@ -783,7 +824,7 @@
     </div>
 
     <script>
-        /* MATCHING GAME SCRIPT */
+        /* MINI-GAME 1: MATCHING CARDS SCRIPT */
         const gameIcons = ['🐱', '🐱', '💖', '💖', '🎂', '🎂'];
         let hasFlippedCard = false;
         let lockBoard = false;
@@ -846,7 +887,7 @@
 
             if (matchedPairs === 3) {
                 setTimeout(() => {
-                    document.getElementById('game-status').innerText = "Awesome job! You matched them all! 🎉";
+                    document.getElementById('game-status').innerText = "Level 1 Cleared! 🎉";
                     document.getElementById('btn-unlock').style.display = 'inline-block';
                     explodeHearts(window.innerWidth/2, window.innerHeight/2);
                 }, 500);
@@ -867,7 +908,67 @@
             [firstCard, secondCard] = [null, null];
         }
 
-        // Initialize game on start
+        /* MINI-GAME 2: CATCH THE CATS SCRIPT */
+        let catScore = 0;
+        let catTimer = 15;
+        let catGameInterval, catSpawnInterval;
+        const catIcons = ['🐱', '😸', '😻', '😽', '🐾', '💖'];
+
+        function startCatGame() {
+            catScore = 0;
+            catTimer = 15;
+            document.getElementById('cat-score').innerText = catScore;
+            document.getElementById('cat-timer').innerText = catTimer;
+            document.getElementById('btn-start-cat-game').style.display = 'none';
+            document.getElementById('cat-game-area').innerHTML = "";
+
+            catSpawnInterval = setInterval(spawnCat, 800);
+            catGameInterval = setInterval(() => {
+                catTimer--;
+                document.getElementById('cat-timer').innerText = catTimer;
+                if (catTimer <= 0) {
+                    clearInterval(catGameInterval);
+                    clearInterval(catSpawnInterval);
+                    if (catScore < 5) {
+                        document.getElementById('cat-game-status').innerText = "Time's up! Try again! 🐾";
+                        document.getElementById('btn-start-cat-game').style.display = 'inline-block';
+                    }
+                }
+            }, 1000);
+        }
+
+        function spawnCat() {
+            const area = document.getElementById('cat-game-area');
+            const cat = document.createElement('div');
+            cat.className = 'catch-cat-item';
+            cat.innerText = catIcons[Math.floor(Math.random() * catIcons.length)];
+
+            const maxX = area.clientWidth - 50;
+            const maxY = area.clientHeight - 50;
+            cat.style.left = Math.random() * maxX + 'px';
+            cat.style.top = Math.random() * maxY + 'px';
+
+            cat.onclick = (e) => {
+                e.stopPropagation();
+                catScore++;
+                document.getElementById('cat-score').innerText = catScore;
+                explodeHearts(e.clientX, e.clientY);
+                cat.remove();
+
+                if (catScore >= 5) {
+                    clearInterval(catGameInterval);
+                    clearInterval(catSpawnInterval);
+                    document.getElementById('cat-game-status').innerText = "Level 2 Cleared! You unlocked the surprise! 🎉";
+                    document.getElementById('btn-unlock-final').style.display = 'inline-block';
+                    explodeHearts(window.innerWidth/2, window.innerHeight/2);
+                }
+            };
+
+            area.appendChild(cat);
+            setTimeout(() => { if (cat.parentNode) cat.remove(); }, 1600);
+        }
+
+        // Initialize game 1 on start
         initGame();
 
         /* STORY & DISCORD SCRIPTS */
