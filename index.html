@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday Youssef!</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
         :root {
@@ -31,11 +34,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Each screen gets its own standalone container */
+        /* Floating Hearts Background Animation */
+        .heart-particle {
+            position: fixed;
+            bottom: -100px;
+            font-size: 24px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Standalone Screen Container */
         .page-screen {
-            display: none; /* Hidden by default */
+            display: none;
             background: rgba(255, 255, 255, 0.96);
             padding: 35px 25px;
             border-radius: 24px;
@@ -44,12 +72,13 @@
             width: 100%;
             border: 3px solid var(--card-pink);
             box-sizing: border-box;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Only the active screen shows up */
         .page-screen.active {
             display: block;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .title-cursive {
@@ -67,7 +96,7 @@
             margin-bottom: 20px;
         }
 
-        /* Buttons */
+        /* Buttons with Hover Animations */
         .btn-red {
             background-color: var(--primary-red);
             color: white;
@@ -78,12 +107,13 @@
             border-radius: 25px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(193, 18, 31, 0.3);
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .btn-red:hover {
             background-color: var(--deep-red);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 15px rgba(120, 0, 0, 0.4);
         }
 
         .btn-dark-red {
@@ -99,15 +129,22 @@
             background-color: #333;
         }
 
-        /* Menu Interface Layout */
+        /* Music Box Pulse Effect */
         .music-box {
             background: var(--soft-pink);
             border: 2px dashed var(--primary-red);
             border-radius: 16px;
             padding: 15px;
             margin-bottom: 20px;
+            animation: pulseGlow 3s infinite alternate;
         }
 
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(193, 18, 31, 0.2); }
+            100% { box-shadow: 0 0 18px rgba(193, 18, 31, 0.5); }
+        }
+
+        /* Countdown Timer Styling */
         .countdown {
             display: flex;
             justify-content: center;
@@ -122,6 +159,11 @@
             border-radius: 12px;
             min-width: 55px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-2px);
         }
 
         .time-box span {
@@ -139,7 +181,7 @@
             margin-top: 20px;
         }
 
-        /* Dedicated Content Screens */
+        /* Card Layouts */
         .content-card {
             background: var(--soft-pink);
             border-left: 5px solid var(--primary-red);
@@ -155,7 +197,7 @@
         }
 
         .reasons-list li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 500;
         }
 
@@ -172,6 +214,11 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) rotate(1deg);
         }
 
         .photo-card img {
@@ -181,36 +228,44 @@
             border-radius: 6px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" loop>
-        <source src="https://open.spotify.com/track/4zYWa9FlCaMtrNrPQwouRR?si=QDHz8VOPT0KEYDzwuN2kiA&utm_source=copy-link" type="audio/mpeg">
+    <!-- Background Floating Hearts Container -->
+    <div id="hearts-container"></div>
+
+    <!-- Direct Streaming Audio Player ("Lips" by d4vd) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://ia801308.us.archive.org/24/items/d4vd-lips-audio/d4vd%20-%20Lips%20%28Audio%29.mp3" type="audio/mpeg">
         Your browser does not support audio.
     </audio>
 
+    <!-- 1. ENVELOPE SCREEN -->
     <div id="page-envelope" class="page-screen active">
-        <span style="font-size: 80px; display: block; margin-bottom: 10px;">💌</span>
+        <span style="font-size: 80px; display: block; margin-bottom: 10px; animation: bounce 2s infinite;">💌</span>
         <h1 class="title-cursive">You Have a Letter</h1>
-        <p class="subtitle">For [His Name], with all my love.</p>
+        <p class="subtitle">For Youssef, with all my love.</p>
         <button class="btn-red" onclick="showScreen('page-main-menu')">Open Letter ✨</button>
     </div>
 
+    <!-- 2. MAIN MENU SCREEN -->
     <div id="page-main-menu" class="page-screen">
-        <h1 class="title-cursive" style="font-size: 3em;">Happy Birthday, [His Name]!</h1>
+        <h1 class="title-cursive" style="font-size: 3em;">Happy Birthday, Youssef!</h1>
 
+        <!-- Music Box -->
         <div class="music-box">
             <p style="margin: 0 0 10px 0; font-family: var(--font-serif); color: var(--deep-red); font-size: 0.95em; font-weight: 600;">
-                🎧 Press Play below to enjoy background music while reading!
+                🎧 Press Play below to listen to "Lips" by d4vd!
             </p>
             <button class="btn-red" onclick="toggleMusic()">🎵 Play / Pause Song</button>
         </div>
 
+        <!-- Countdown -->
         <div class="countdown">
             <div class="time-box"><span id="days">00</span>Days</div>
             <div class="time-box"><span id="hours">00</span>Hours</div>
@@ -218,6 +273,7 @@
             <div class="time-box"><span id="seconds">00</span>Secs</div>
         </div>
 
+        <!-- Navigation Buttons -->
         <div class="nav-grid">
             <button class="btn-red" onclick="showScreen('page-letter')">💌 Letter</button>
             <button class="btn-red" onclick="showScreen('page-photos')">📷 Photos</button>
@@ -226,16 +282,18 @@
         </div>
     </div>
 
+    <!-- 3. SEPARATE PAGE: LETTER ONLY -->
     <div id="page-letter" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">To My Favorite Person,</h3>
-            <p>Happy Birthday! I love you so much. Thank you for always being by my side through all my ups and downs—I truly appreciate everything you do and every moment we share together.</p>
+            <p>Happy Birthday Youssef! I love you so much. Thank you for always being by my side through all my ups and downs—I truly appreciate everything you do and every moment we share together.</p>
             <p>You mean the world to me, and I am so grateful to have you in my life.</p>
             <p style="font-family: var(--font-cursive); font-size: 2.2em; color: var(--deep-red); margin-bottom: 0;">Forever Yours, ❤️</p>
         </div>
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu')">← Back to Menu</button>
     </div>
 
+    <!-- 4. SEPARATE PAGE: PHOTOS ONLY -->
     <div id="page-photos" class="page-screen">
         <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">Our Memories 📸</h3>
         <div class="photo-grid">
@@ -255,6 +313,7 @@
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu')">← Back to Menu</button>
     </div>
 
+    <!-- 5. SEPARATE PAGE: 5 REASONS ONLY -->
     <div id="page-reasons" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">5 Reasons Why I Love You</h3>
@@ -263,42 +322,77 @@
                 <li>You're gay.</li>
                 <li>You're gay.</li>
                 <li>You're gay.</li>
-                <li><strong>He makes me happy. ❤️</strong></li>
+                <li><strong>You changed for the better not only for me and for us, but also for yourself. ❤️</strong></li>
             </ol>
         </div>
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu')">← Back to Menu</button>
     </div>
 
+    <!-- 6. SEPARATE PAGE: BIRTHDAY WISH ONLY -->
     <div id="page-wish" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">My Wish For You 🌟</h3>
-            <p>On your special day, September 14, I am wishing you continuous good health, endless success, and a brighter, beautiful future ahead.</p>
+            <p>On your special day, September 14, I am wishing you continuous good health, endless success, and a brighter, beautiful future ahead, Youssef.</p>
             <p>May all your dreams come true, and may we continue celebrating many more birthdays together!</p>
         </div>
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu')">← Back to Menu</button>
     </div>
 
     <script>
-        // Switch view: hides all screens and activates ONLY the target screen
+        // Screen Switching Function with Confetti Effect
         function showScreen(screenId) {
             var screens = document.querySelectorAll('.page-screen');
             screens.forEach(function(screen) {
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
+
+            // Trigger a quick pop of confetti when entering screens
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 35,
+                    spread: 60,
+                    origin: { y: 0.7 }
+                });
+            }
         }
 
-        // Play/Pause Background Music
+        // Toggle Background Music
         function toggleMusic() {
             var music = document.getElementById("bg-music");
             if (music.paused) {
-                music.play();
+                music.play().then(() => {
+                    // Confetti burst on successful music start
+                    confetti({ particleCount: 50, spread: 80, origin: { y: 0.6 } });
+                }).catch(e => console.log("Audio playback error: ", e));
             } else {
                 music.pause();
             }
         }
 
-        // Countdown Timer set strictly to Midnight Sept 14 in PDT (15 hours behind Philippines / UTC-7)
+        // Create Floating Background Hearts
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            
+            const heartIcons = ['❤️', '💖', '💕', '✨', '🌸'];
+            heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 9000);
+        }
+
+        setInterval(createHeart, 500);
+
+        // Countdown Timer strictly targeting Midnight Sept 14 (PDT / UTC-7)
         var targetDate = new Date("2026-09-14T00:00:00-07:00").getTime();
 
         var timer = setInterval(function() {
@@ -307,7 +401,7 @@
 
             if (distance < 0) {
                 clearInterval(timer);
-                document.querySelector(".countdown").innerHTML = "<h2 style='color: var(--primary-red); font-family: var(--font-serif);'>🎉 HAPPY BIRTHDAY! 🎉</h2>";
+                document.querySelector(".countdown").innerHTML = "<h2 style='color: var(--primary-red); font-family: var(--font-serif);'>🎉 HAPPY BIRTHDAY YOUSSEF! 🎉</h2>";
                 return;
             }
 
