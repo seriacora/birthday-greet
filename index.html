@@ -39,7 +39,7 @@
             position: relative;
         }
 
-        /* Continuous Floating Background Particles */
+        /* Floating Background Particles */
         .heart-particle {
             position: fixed;
             bottom: -100px;
@@ -72,7 +72,6 @@
             100% { transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* Animated Elements */
         .animated-cat-mascot {
             font-size: 70px;
             display: inline-block;
@@ -98,7 +97,6 @@
             75% { transform: rotate(3deg) scale(0.98); }
         }
 
-        /* Main Container Screens */
         .page-screen {
             display: none;
             background: rgba(255, 255, 255, 0.96);
@@ -139,7 +137,6 @@
             margin-bottom: 20px;
         }
 
-        /* Buttons & Controls */
         .btn-red {
             background-color: var(--primary-red);
             color: white;
@@ -177,7 +174,7 @@
             100% { box-shadow: 0 0 22px rgba(193, 18, 31, 0.5); }
         }
 
-        /* NEW DISCORD STORY ANIMATION STYLES */
+        /* DISCORD ANIMATION STYLES */
         .discord-window {
             background: #1e1f22;
             border-radius: 20px;
@@ -230,9 +227,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .chat-content {
-            flex-grow: 1;
-        }
+        .chat-content { flex-grow: 1; }
 
         .chat-author {
             font-size: 0.9em;
@@ -261,15 +256,9 @@
             border-left: 3px solid var(--discord-purple);
         }
 
-        .chat-row.youssef .avatar-circle {
-            border-color: var(--discord-green);
-        }
+        .chat-row.youssef .avatar-circle { border-color: var(--discord-green); }
+        .chat-row.youssef .chat-text-box { border-left-color: var(--discord-green); }
 
-        .chat-row.youssef .chat-text-box {
-            border-left-color: var(--discord-green);
-        }
-
-        /* Typing Dots Animation */
         .typing-indicator {
             display: inline-flex;
             gap: 4px;
@@ -298,7 +287,6 @@
             40% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* Countdown & Photo Grid */
         .countdown {
             display: flex;
             justify-content: center;
@@ -392,10 +380,9 @@
 
     <audio id="bg-music" loop preload="auto">
         <source src="./sowhat.mp3" type="audio/mpeg">
-        Your browser does not support audio.
     </audio>
 
-    <!-- STEP 1: MUSIC START SCREEN -->
+    <!-- STEP 1: MUSIC START -->
     <div id="page-music-start" class="page-screen active">
         <div class="animated-cat-mascot">🐱🎧</div>
         <h1 class="title-cursive wiggle-text">Welcome Youssef!</h1>
@@ -420,7 +407,6 @@
                 <span style="margin-left: auto; color: #57F287;">● Active Now</span>
             </div>
 
-            <!-- Animated Chat Message 1 -->
             <div id="chat-msg-1" class="chat-row">
                 <div class="avatar-circle">👩‍💻</div>
                 <div class="chat-content">
@@ -429,7 +415,6 @@
                 </div>
             </div>
 
-            <!-- Animated Chat Message 2 -->
             <div id="chat-msg-2" class="chat-row youssef">
                 <div class="avatar-circle">👨‍💻</div>
                 <div class="chat-content">
@@ -438,7 +423,6 @@
                 </div>
             </div>
 
-            <!-- Typing Indicator Element -->
             <div id="typing-indicator" class="typing-indicator" style="display: none;">
                 <span>Youssef is typing</span>
                 <div class="typing-dot"></div>
@@ -458,7 +442,7 @@
         <button class="btn-red" onclick="showScreen('page-main-menu', event)">Open Letter ✨</button>
     </div>
 
-    <!-- STEP 4: MAIN MENU SCREEN -->
+    <!-- STEP 4: MAIN MENU -->
     <div id="page-main-menu" class="page-screen">
         <h1 class="title-cursive wiggle-text" style="font-size: 3em;">Happy Birthday, Youssef!</h1>
 
@@ -485,7 +469,7 @@
         </div>
     </div>
 
-    <!-- PAGE: LETTER -->
+    <!-- SUB-PAGES -->
     <div id="page-letter" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">To My Favorite Person,</h3>
@@ -496,68 +480,32 @@
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu', event)">← Back to Menu</button>
     </div>
 
-    <!-- PAGE: PHOTOS -->
     <div id="page-photos" class="page-screen">
         <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">Our Memories 📸</h3>
         <div class="photo-grid" style="grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));">
-            <div class="photo-card">
-                <img src="photo1.jpg" alt="Memory 1">
-                <p style="font-size: 0.8em; margin: 4px 0;">Special Times</p>
-            </div>
-            <div class="photo-card">
-                <img src="photo2.jpg" alt="Memory 2">
-                <p style="font-size: 0.8em; margin: 4px 0;">Always Together</p>
-            </div>
-            <div class="photo-card">
-                <img src="photo3.jpg" alt="Memory 3">
-                <p style="font-size: 0.8em; margin: 4px 0;">Best Moments</p>
-            </div>
+            <div class="photo-card"><img src="photo1.jpg" alt="Memory 1"><p style="font-size: 0.8em; margin: 4px 0;">Special Times</p></div>
+            <div class="photo-card"><img src="photo2.jpg" alt="Memory 2"><p style="font-size: 0.8em; margin: 4px 0;">Always Together</p></div>
+            <div class="photo-card"><img src="photo3.jpg" alt="Memory 3"><p style="font-size: 0.8em; margin: 4px 0;">Best Moments</p></div>
         </div>
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu', event)">← Back to Menu</button>
     </div>
 
-    <!-- PAGE: EXPANDED CUTE CATS GALLERY -->
     <div id="page-cats" class="page-screen">
         <div class="animated-cat-mascot" style="font-size: 45px;">🐾😸</div>
         <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">Cute Kitty Friends! 🐱</h3>
         <p style="font-size: 0.85em; color: #555;">Lots of cute cats to bring a smile on your birthday!</p>
         
         <div class="photo-grid">
-            <div class="photo-card">
-                <span class="cat-badge"> Sleepy</span>
-                <img src="https://cataas.com/cat/cute?1" alt="Cute Cat 1">
-                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Cozy Kitty 😴</p>
-            </div>
-            <div class="photo-card">
-                <span class="cat-badge"> Birthday</span>
-                <img src="https://cataas.com/cat/says/Happy%20Birthday?2" alt="Cute Cat 2">
-                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Party Cat 🎂</p>
-            </div>
-            <div class="photo-card">
-                <span class="cat-badge"> Silly</span>
-                <img src="https://cataas.com/cat/funny?3" alt="Cute Cat 3">
-                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Goofy Cat 🤪</p>
-            </div>
-            <div class="photo-card">
-                <span class="cat-badge"> Fluffy</span>
-                <img src="https://cataas.com/cat/fluffy?4" alt="Cute Cat 4">
-                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Fluffball ☁️</p>
-            </div>
-            <div class="photo-card">
-                <span class="cat-badge"> Tiny</span>
-                <img src="https://cataas.com/cat/kitten?5" alt="Cute Cat 5">
-                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Baby Kitten 🐾</p>
-            </div>
-            <div class="photo-card">
-                <span class="cat-badge"> Sweet</span>
-                <img src="https://cataas.com/cat/hug?6" alt="Cute Cat 6">
-                <p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Cuddle Kitty 💖</p>
-            </div>
+            <div class="photo-card"><span class="cat-badge"> Sleepy</span><img src="https://cataas.com/cat/cute?1" alt="Cute Cat 1"><p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Cozy Kitty 😴</p></div>
+            <div class="photo-card"><span class="cat-badge"> Birthday</span><img src="https://cataas.com/cat/says/Happy%20Birthday?2" alt="Cute Cat 2"><p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Party Cat 🎂</p></div>
+            <div class="photo-card"><span class="cat-badge"> Silly</span><img src="https://cataas.com/cat/funny?3" alt="Cute Cat 3"><p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Goofy Cat 🤪</p></div>
+            <div class="photo-card"><span class="cat-badge"> Fluffy</span><img src="https://cataas.com/cat/fluffy?4" alt="Cute Cat 4"><p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Fluffball ☁️</p></div>
+            <div class="photo-card"><span class="cat-badge"> Tiny</span><img src="https://cataas.com/cat/kitten?5" alt="Cute Cat 5"><p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Baby Kitten 🐾</p></div>
+            <div class="photo-card"><span class="cat-badge"> Sweet</span><img src="https://cataas.com/cat/hug?6" alt="Cute Cat 6"><p style="font-size: 0.8em; margin: 4px 0; font-weight: 600;">Cuddle Kitty 💖</p></div>
         </div>
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu', event)">← Back to Menu</button>
     </div>
 
-    <!-- PAGE: 5 REASONS -->
     <div id="page-reasons" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">5 Reasons Why I Love You</h3>
@@ -572,7 +520,6 @@
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu', event)">← Back to Menu</button>
     </div>
 
-    <!-- PAGE: BIRTHDAY WISH -->
     <div id="page-wish" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">My Wish For You 🌟</h3>
@@ -583,38 +530,24 @@
     </div>
 
     <script>
-        // Story Chapters & Dialogues
         const storyStages = [
-            {
-                msg1: "Hey! Saw you in the server... wanted to say hi! 👋",
-                msg2: "Hey there! Glad you messaged me 😊"
-            },
-            {
-                msg1: "We started talking every single day, sharing funny cat memes & music... 🎧🐱",
-                msg2: "I really enjoy talking to you every day."
-            },
-            {
-                msg1: "And then... two strangers on Discord fell completely in love. ❤️",
-                msg2: "Now you are my favorite person in the entire world! 👩‍❤️‍💋‍👨"
-            }
+            { msg1: "Hey! Saw you in the server... wanted to say hi! 👋", msg2: "Hey there! Glad you messaged me 😊" },
+            { msg1: "We started talking every single day, sharing funny cat memes & music... 🎧🐱", msg2: "I really enjoy talking to you every day." },
+            { msg1: "And then... two strangers on Discord fell completely in love. ❤️", msg2: "Now you are my favorite person in the entire world! 👩‍❤️‍💋‍👨" }
         ];
 
         let currentStageIndex = 0;
 
-        // Typewriter Animation Logic
         function typeText(elementId, text, speed, callback) {
             let i = 0;
             const elem = document.getElementById(elementId);
             elem.innerText = "";
-            
             function type() {
                 if (i < text.length) {
                     elem.innerText += text.charAt(i);
                     i++;
                     setTimeout(type, speed);
-                } else if (callback) {
-                    callback();
-                }
+                } else if (callback) { callback(); }
             }
             type();
         }
@@ -629,15 +562,11 @@
             msg2Row.classList.remove('visible');
             typingIndicator.style.display = 'none';
 
-            // Reveal Message 1 with Typewriter Effect
             setTimeout(() => {
                 msg1Row.classList.add('visible');
                 typeText('typed-text-1', stage.msg1, 35, () => {
-                    // Show Typing Indicator for Youssef
                     setTimeout(() => {
                         typingIndicator.style.display = 'inline-flex';
-                        
-                        // Reveal Message 2
                         setTimeout(() => {
                             typingIndicator.style.display = 'none';
                             msg2Row.classList.add('visible');
@@ -650,7 +579,6 @@
 
         function nextStoryStage(event) {
             if (event) explodeHearts(event.clientX, event.clientY);
-
             currentStageIndex++;
             if (currentStageIndex < storyStages.length) {
                 playStoryAnimation(currentStageIndex);
@@ -664,46 +592,30 @@
 
         function explodeHearts(x, y) {
             const heartIcons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '😸', '🌸'];
-            const count = 25;
-
-            for (let i = 0; i < count; i++) {
+            for (let i = 0; i < 25; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'burst-heart';
                 heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
-
                 const angle = Math.random() * Math.PI * 2;
                 const distance = Math.random() * 120 + 40;
-                const dx = Math.cos(angle) * distance + 'px';
-                const dy = Math.sin(angle) * distance + 'px';
-                const rot = (Math.random() * 360) + 'deg';
-
                 heart.style.left = x + 'px';
                 heart.style.top = y + 'px';
-                heart.style.setProperty('--dx', dx);
-                heart.style.setProperty('--dy', dy);
-                heart.style.setProperty('--rot', rot);
-
+                heart.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
+                heart.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
+                heart.style.setProperty('--rot', (Math.random() * 360) + 'deg');
                 document.body.appendChild(heart);
-
                 setTimeout(() => { heart.remove(); }, 1200);
             }
         }
 
         function showScreen(screenId, event) {
-            if (event) {
-                explodeHearts(event.clientX || window.innerWidth / 2, event.clientY || window.innerHeight / 2);
-            }
-
-            var screens = document.querySelectorAll('.page-screen');
-            screens.forEach(function(screen) {
-                screen.classList.remove('active');
-            });
+            if (event) explodeHearts(event.clientX || window.innerWidth / 2, event.clientY || window.innerHeight / 2);
+            document.querySelectorAll('.page-screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
         }
 
         function startExperience(event) {
-            var music = document.getElementById("bg-music");
-            music.play().catch(e => { console.log("Audio playback error:", e); });
+            document.getElementById("bg-music").play().catch(e => console.log(e));
             showScreen('page-story', event);
             playStoryAnimation(0);
         }
@@ -722,39 +634,30 @@
             const container = document.getElementById('hearts-container');
             const heart = document.createElement('div');
             heart.classList.add('heart-particle');
-            
             const icons = ['❤️', '💖', '💕', '✨', '🐾', '🐱', '😸', '🌸'];
             heart.innerText = icons[Math.floor(Math.random() * icons.length)];
-            
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
             heart.style.fontSize = (Math.random() * 15 + 18) + 'px';
-            
             container.appendChild(heart);
-            
             setTimeout(() => { heart.remove(); }, 8000);
         }
-
         setInterval(createHeart, 450);
 
         var targetDate = new Date("2026-09-14T00:00:00-07:00").getTime();
-
         var timer = setInterval(function() {
             var now = new Date().getTime();
             var distance = targetDate - now;
-
             if (distance < 0) {
                 clearInterval(timer);
                 document.querySelector(".countdown").innerHTML = "<h2 style='color: var(--primary-red); font-family: var(--font-serif);'>🎉 HAPPY BIRTHDAY YOUSSEF! 🎉</h2>";
                 return;
             }
-
             document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
             document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
         }, 1000);
     </script>
-
 </body>
 </html>
