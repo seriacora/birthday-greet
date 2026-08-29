@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
@@ -190,13 +189,11 @@
 </head>
 <body>
 
-    <!-- Global Audio Player -->
     <audio id="bg-music" loop>
-        <source src="song.mp3" type="audio/mpeg">
+        <source src="https://open.spotify.com/track/4zYWa9FlCaMtrNrPQwouRR?si=QDHz8VOPT0KEYDzwuN2kiA&utm_source=copy-link" type="audio/mpeg">
         Your browser does not support audio.
     </audio>
 
-    <!-- 1. ENVELOPE SCREEN -->
     <div id="page-envelope" class="page-screen active">
         <span style="font-size: 80px; display: block; margin-bottom: 10px;">💌</span>
         <h1 class="title-cursive">You Have a Letter</h1>
@@ -204,11 +201,9 @@
         <button class="btn-red" onclick="showScreen('page-main-menu')">Open Letter ✨</button>
     </div>
 
-    <!-- 2. MAIN MENU SCREEN (Matches your images) -->
     <div id="page-main-menu" class="page-screen">
         <h1 class="title-cursive" style="font-size: 3em;">Happy Birthday, [His Name]!</h1>
 
-        <!-- Music Box -->
         <div class="music-box">
             <p style="margin: 0 0 10px 0; font-family: var(--font-serif); color: var(--deep-red); font-size: 0.95em; font-weight: 600;">
                 🎧 Press Play below to enjoy background music while reading!
@@ -216,7 +211,6 @@
             <button class="btn-red" onclick="toggleMusic()">🎵 Play / Pause Song</button>
         </div>
 
-        <!-- Countdown -->
         <div class="countdown">
             <div class="time-box"><span id="days">00</span>Days</div>
             <div class="time-box"><span id="hours">00</span>Hours</div>
@@ -224,7 +218,6 @@
             <div class="time-box"><span id="seconds">00</span>Secs</div>
         </div>
 
-        <!-- Buttons to open separate pages -->
         <div class="nav-grid">
             <button class="btn-red" onclick="showScreen('page-letter')">💌 Letter</button>
             <button class="btn-red" onclick="showScreen('page-photos')">📷 Photos</button>
@@ -233,7 +226,6 @@
         </div>
     </div>
 
-    <!-- 3. SEPARATE PAGE: LETTER ONLY -->
     <div id="page-letter" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">To My Favorite Person,</h3>
@@ -244,7 +236,6 @@
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu')">← Back to Menu</button>
     </div>
 
-    <!-- 4. SEPARATE PAGE: PHOTOS ONLY -->
     <div id="page-photos" class="page-screen">
         <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">Our Memories 📸</h3>
         <div class="photo-grid">
@@ -264,7 +255,6 @@
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu')">← Back to Menu</button>
     </div>
 
-    <!-- 5. SEPARATE PAGE: 5 REASONS ONLY -->
     <div id="page-reasons" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">5 Reasons Why I Love You</h3>
@@ -279,7 +269,6 @@
         <button class="btn-red btn-back" onclick="showScreen('page-main-menu')">← Back to Menu</button>
     </div>
 
-    <!-- 6. SEPARATE PAGE: BIRTHDAY WISH ONLY -->
     <div id="page-wish" class="page-screen">
         <div class="content-card">
             <h3 style="color: var(--primary-red); margin-top: 0; font-family: var(--font-serif);">My Wish For You 🌟</h3>
